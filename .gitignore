@@ -1,0 +1,25 @@
+# node
+node_modules
+dist
+.tsbuild-node
+
+# rust
+target
+**/target
+
+# env
+.env.local
+.env
+
+# editor / os
+.DS_Store
+.vscode
+.idea
+
+# build artifacts
+*.wasm
+.contract-id-*.txt
+.token-a-id.txt
+.token-b-id.txt
+.lp-id.txt
+.amm-id.txt
