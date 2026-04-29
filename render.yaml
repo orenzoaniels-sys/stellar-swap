@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: stellar-swap
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_TOKEN_A_ID
+        sync: false
+      - key: VITE_TOKEN_B_ID
+        sync: false
+      - key: VITE_LP_TOKEN_ID
+        sync: false
+      - key: VITE_AMM_ID
+        sync: false
+      - key: VITE_NETWORK_PASSPHRASE
+        value: "Test SDF Network ; September 2015"
+      - key: VITE_RPC_URL
+        value: https://soroban-testnet.stellar.org
