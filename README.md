@@ -1,13 +1,19 @@
 # 🌊 Stellar Swap — Green Belt
 
-[![Network](https://img.shields.io/badge/network-Stellar%20Testnet-06b6d4?style=for-the-badge)](https://stellar.expert/explorer/testnet)
-[![Tests](https://img.shields.io/badge/tests-31%20passing-22c55e?style=for-the-badge)](#-tests)
-[![Formula](https://img.shields.io/badge/AMM-x%20·%20y%20%3D%20k-3b82f6?style=for-the-badge)](#-architecture-inter-contract-calls)
+[![Live demo](https://img.shields.io/badge/live%20demo-stellar--swap.onrender.com-06b6d4?style=for-the-badge)](https://stellar-swap.onrender.com)
+
+[![CI](https://github.com/orenzoaniels-sys/stellar-swap/actions/workflows/ci.yml/badge.svg)](https://github.com/orenzoaniels-sys/stellar-swap/actions/workflows/ci.yml)
+[![Network](https://img.shields.io/badge/network-Stellar%20Testnet-06b6d4)](https://stellar.expert/explorer/testnet)
+[![Tests](https://img.shields.io/badge/tests-31%20passing-22c55e)](#-tests)
+[![Formula](https://img.shields.io/badge/AMM-x%20·%20y%20%3D%20k-3b82f6)](#-architecture-inter-contract-calls)
+[![License](https://img.shields.io/badge/license-MIT-06b6d4)](#-license)
 
 A **4-contract constant-product AMM** (Uniswap-V2 style) on Stellar Soroban. Two fungible tokens (`STAR` + `MOON`), an LP-share token, and the AMM pool itself — with **3 inter-contract calls per `add_liquidity()` / `remove_liquidity()`** and **2 per `swap()`**.
 
 > **Stellar Frontend Challenge — Level 4 (Green Belt) submission.**
 > No NFTs, no minting UI — this project focuses on **DeFi primitives**: pricing curves, LP shares, slippage, and atomic multi-contract settlement.
+
+**🌐 Try it now → https://stellar-swap.onrender.com**
 
 ---
 
@@ -16,6 +22,19 @@ A **4-contract constant-product AMM** (Uniswap-V2 style) on Stellar Soroban. Two
 Users claim free **STAR** and **MOON** tokens from two per-wallet faucets, seed a pool by **adding liquidity** (which mints them LP-shares representing their pool ownership), **swap** between STAR and MOON against the pool, or **remove** their liquidity at any time to reclaim their proportional share of the reserves — including accumulated swap fees.
 
 Every swap charges a **0.30% fee** that stays in the pool, growing the `k` invariant and rewarding liquidity providers. The UI quotes the exact output amount via an on-chain `quote_swap()` simulation before the user signs, shows the **price impact**, and lets the user configure a slippage tolerance (0.1 / 0.5 / 1 % presets + custom).
+
+---
+
+## 🚀 Live deployment (testnet)
+
+| Contract           | Address | Explorer |
+| ------------------ | ------- | -------- |
+| **Token A** (STAR) | `CCPAKYVGG4LRFSAIC2FKEHVIXJNAQ7AACA6YDEWGXLREN3ZBDPZTGOXK` | [view](https://stellar.expert/explorer/testnet/contract/CCPAKYVGG4LRFSAIC2FKEHVIXJNAQ7AACA6YDEWGXLREN3ZBDPZTGOXK) |
+| **Token B** (MOON) | `CBYE3TO3RE4GQO26MJX7V5U5YFQO3CCO4MQUQV2IX7DQZLI3BMU2CDLS` | [view](https://stellar.expert/explorer/testnet/contract/CBYE3TO3RE4GQO26MJX7V5U5YFQO3CCO4MQUQV2IX7DQZLI3BMU2CDLS) |
+| **LP token** (S-LP) | `CCY6RWSDVDEXT6CZVD5YMBJR7XVFPBK7SP2JK7HO5X575DIQRG5H2BE2` | [view](https://stellar.expert/explorer/testnet/contract/CCY6RWSDVDEXT6CZVD5YMBJR7XVFPBK7SP2JK7HO5X575DIQRG5H2BE2) |
+| **AMM**            | `CADYO3ZF4YPNCMQECZ3MTLTQOAEZVJ54RDPQNZLQBC7H5LR3O7HUIZR6` | [view](https://stellar.expert/explorer/testnet/contract/CADYO3ZF4YPNCMQECZ3MTLTQOAEZVJ54RDPQNZLQBC7H5LR3O7HUIZR6) |
+
+> The deploy script (`scripts/deploy.ps1`) prints these IDs and writes them to `.env.local` automatically.
 
 ---
 
@@ -312,9 +331,17 @@ Wallet-popup cancellations are also caught and silently ignored.
 
 ## 📸 Screenshots
 
+### CI/CD pipeline
+
+![CI status](https://github.com/orenzoaniels-sys/stellar-swap/actions/workflows/ci.yml/badge.svg)
+
+The CI badge above is live — it goes green when all three jobs (`Build + Test contracts`, `Build frontend`, `Status`) succeed on `main`.
+
 ### Mobile responsive
 
 Open the live demo on a phone (or Chrome DevTools → mobile mode 375 × 667). The layout collapses to a single column, cards stack, the swap flip button stays reachable, and all buttons remain tap-friendly.
+
+![Mobile view](docs/mobile.png)
 
 ---
 
@@ -331,9 +358,10 @@ Open the live demo on a phone (or Chrome DevTools → mobile mode 375 × 667). T
 - [x] Comprehensive README with badges, architecture, and tx hashes
 - [x] **GitHub Actions CI** (cargo test + frontend build + dist artifact)
 - [x] **Render Blueprint** (`render.yaml`) + Netlify config for one-click deploy
+- [x] **Live deploy URL: https://stellar-swap.onrender.com**
 
 ---
 
 ## 📜 License
 
-MIT
+MIT © orenzoaniels-sys
